@@ -1,12 +1,10 @@
 package routers
 
 import (
-	_ "github.com/EDDYCJY/go-gin-example/docs"
 	"github.com/gin-gonic/gin"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"tangxin-demo/middleware/jwt"
-	"tangxin-demo/pkg/setting"
 	v1 "tangxin-demo/routers/api/v1"
 )
 
@@ -15,7 +13,8 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	gin.SetMode(setting.RunMode)
+	gin.SetMode(gin.DebugMode)
+
 	r.GET("/auth", v1.GetAuth)
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())

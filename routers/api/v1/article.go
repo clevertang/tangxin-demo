@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"tangxin-demo/models"
 	"tangxin-demo/pkg/e"
-	"tangxin-demo/pkg/my_logging"
+	"tangxin-demo/pkg/logging"
 	"tangxin-demo/pkg/setting"
 	"tangxin-demo/pkg/util"
 )
@@ -30,11 +30,11 @@ func GetArticles(c *gin.Context) {
 	code := e.INVALID_PARAMS
 	if !valid.HasErrors() {
 		code = e.SUCCESS
-		data["lists"] = models.GetArticles(util.GetPage(c), setting.PageSize, maps)
+		data["lists"] = models.GetArticles(util.GetPage(c), setting.AppSetting.PageSize, maps)
 		data["total"] = models.GetArticleTotal(maps)
 	} else {
 		for _, err := range valid.Errors {
-			my_logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
@@ -59,7 +59,7 @@ func GetArticle(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			my_logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
 		}
 
 	}
@@ -101,7 +101,7 @@ func AddArticle(c *gin.Context) {
 			code = e.SUCCESS
 		} else {
 			for _, err := range valid.Errors {
-				my_logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
+				logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
 			}
 		}
 	}
@@ -158,7 +158,7 @@ func EditArticle(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			my_logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
 		}
 
 	}
@@ -184,7 +184,7 @@ func DeleteArticle(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			my_logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{

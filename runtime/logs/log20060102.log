@@ -2,3 +2,8 @@
 [ERROR][jwt.go:31]2024/06/20 17:43:55 [code: %d 20001]
 [ERROR][jwt.go:31]2024/06/20 17:43:56 [code: %d 20001]
 [ERROR][models.go:40]2024/06/26 16:39:44 [Fail to open database: %v dial tcp: lookup mysql2: no such host]
+[ERROR][models.go:40]2024/06/26 16:55:33 [Fail to open database: %v dial tcp: lookup mysql2: no such host]
+[ERROR][models.go:40]2024/06/26 17:08:03 [Fail to open database: %v dial tcp: lookup mysql2: no such host]
+[ERROR][models.go:40]2024/06/26 17:09:29 [Fail to open database: %v dial tcp: lookup mysql2: no such host]
+[ERROR][models.go:40]2024/06/26 17:11:25 [Fail to open database: %v dial tcp: lookup mysql2: no such host]
+[ERROR][models.go:40]2024/06/26 17:12:07 [Fail to open database: %v driver: bad connection]

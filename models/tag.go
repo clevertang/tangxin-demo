@@ -71,12 +71,7 @@ func (tag *Tag) BeforeUpdate(scope *gorm.Scope) (err error) {
 	return nil
 }
 
-func cleanAllTag() bool {
+func CleanAllTag() bool {
 	db.Unscoped().Where("deleted_on != ?", 0).Delete(&Tag{})
-	return true
-}
-
-func cleanAllArticle() bool {
-	db.Unscoped().Where("deleted_on != ?", 0).Delete(&Article{})
 	return true
 }

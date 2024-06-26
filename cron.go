@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/robfig/cron"
 	"log"
-	"tangxin-demo/pkg/models"
+	"tangxin-demo/models"
 	"time"
 )
 

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"tangxin-demo/models"
 	"tangxin-demo/pkg/e"
-	"tangxin-demo/pkg/my_logging"
+	"tangxin-demo/pkg/logging"
 	"tangxin-demo/pkg/util"
 )
 
@@ -40,7 +40,7 @@ func GetAuth(c *gin.Context) {
 		}
 	} else {
 		for _, err := range valid.Errors {
-			my_logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
+			logging.Error("err.key: %s, err.message: %s", err.Key, err.Message)
 		}
 	}
 

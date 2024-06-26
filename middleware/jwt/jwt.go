@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"tangxin-demo/pkg/e"
-	"tangxin-demo/pkg/my_logging"
+	"tangxin-demo/pkg/logging"
 	"tangxin-demo/pkg/util"
 	"time"
 )
@@ -28,7 +28,7 @@ func JWT() gin.HandlerFunc {
 		}
 
 		if code != e.SUCCESS {
-			my_logging.Error("code: %d", code)
+			logging.Error("code: %d", code)
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code": code,
 				"msg":  e.GetMsg(code),
