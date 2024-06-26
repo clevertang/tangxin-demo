@@ -21,13 +21,16 @@ func main() {
 	endless.DefaultMaxHeaderBytes = 1 << 20
 	endPoint := fmt.Sprintf(":%d", setting.ServerSetting.HTTPPort)
 
+	log.Printf("Starting server on %s", endPoint)
+
 	server := endless.NewServer(endPoint, routers.InitRouter())
 	server.BeforeBegin = func(add string) {
 		log.Printf("Actual pid is %d", syscall.Getpid())
+		log.Printf("Listening on address: %s", add)
 	}
 
 	err := server.ListenAndServe()
 	if err != nil {
-		log.Printf("Server err: %v", err)
+		log.Printf("Server error: %v", err)
 	}
 }
