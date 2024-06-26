@@ -41,7 +41,7 @@ func CheckImageExt(fileName string) bool {
 	return false
 }
 
-func checkImageSize(f multipart.File) bool {
+func CheckImageSize(f multipart.File) bool {
 	size, err := file.GetSize(f)
 	if err != nil {
 		return false

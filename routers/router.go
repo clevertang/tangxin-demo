@@ -5,6 +5,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"tangxin-demo/middleware/jwt"
+	"tangxin-demo/routers/api"
 	v1 "tangxin-demo/routers/api/v1"
 )
 
@@ -16,6 +17,7 @@ func InitRouter() *gin.Engine {
 	gin.SetMode(gin.DebugMode)
 
 	r.GET("/auth", v1.GetAuth)
+	r.POST("/upload", api.UploadImage)
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
 	{
