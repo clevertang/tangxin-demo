@@ -7,13 +7,14 @@ import (
 
 type Article struct {
 	Model
-	TagID     int    `json:"tag_id"`
-	Tag       Tag    `json:"tag"`
-	Title     string `json:"title"`
-	Desc      string `json:"desc"`
-	Content   string `json:"content"`
-	State     int    `json:"state"`
-	CreatedBy string `json:"created_by"`
+	TagID         int    `json:"tag_id"`
+	Tag           Tag    `json:"tag"`
+	Title         string `json:"title"`
+	Desc          string `json:"desc"`
+	Content       string `json:"content"`
+	State         int    `json:"state"`
+	CreatedBy     string `json:"created_by"`
+	CoverImageUrl string `json:"cover_image_url"`
 }
 
 func (article *Article) Before(scope *gorm.Scope) error {

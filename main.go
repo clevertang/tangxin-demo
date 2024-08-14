@@ -2,10 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/fvbock/endless"
 	"log"
-	"syscall"
-	"tangxin-demo/models"
+	"net/http"
 	"tangxin-demo/pkg/logging"
 	"tangxin-demo/pkg/setting"
 	"tangxin-demo/routers"
@@ -13,24 +11,11 @@ import (
 
 func main() {
 	setting.Setup()
-	models.Setup()
 	logging.Setup()
-
-	endless.DefaultReadTimeOut = setting.ServerSetting.ReadTimeout
-	endless.DefaultWriteTimeOut = setting.ServerSetting.WriteTimeout
-	endless.DefaultMaxHeaderBytes = 1 << 20
-	endPoint := fmt.Sprintf(":%d", setting.ServerSetting.HTTPPort)
-
-	log.Printf("Starting server on %s", endPoint)
-
-	server := endless.NewServer(endPoint, routers.InitRouter())
-	server.BeforeBegin = func(add string) {
-		log.Printf("Actual pid is %d", syscall.Getpid())
-		log.Printf("Listening on address: %s", add)
-	}
-
-	err := server.ListenAndServe()
-	if err != nil {
-		log.Printf("Server error: %v", err)
+	addr := fmt.Sprintf(":%d", setting.ServerSetting.HTTPPort)
+	router := routers.InitRouter()
+	log.Printf("Starting server on %s", addr)
+	if err := http.ListenAndServe(addr, router); err != nil {
+		log.Fatalf("Server failed to start: %v", err)
 	}
 }

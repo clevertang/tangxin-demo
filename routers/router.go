@@ -2,22 +2,27 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"net/http"
+	_ "tangxin-demo/docs"
 	"tangxin-demo/middleware/jwt"
+	"tangxin-demo/pkg/upload"
 	"tangxin-demo/routers/api"
 	v1 "tangxin-demo/routers/api/v1"
 )
 
+// InitRouter initialize routing information
 func InitRouter() *gin.Engine {
 	r := gin.New()
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	gin.SetMode(gin.DebugMode)
+	r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
 
-	r.GET("/auth", v1.GetAuth)
+	r.POST("/auth", v1.GetAuth)
 	r.POST("/upload", api.UploadImage)
+
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
 	{
@@ -31,5 +36,6 @@ func InitRouter() *gin.Engine {
 		apiv1.PUT("/articles/:id", v1.EditArticle)
 		apiv1.DELETE("/articles/:id", v1.DeleteArticle)
 	}
+
 	return r
 }

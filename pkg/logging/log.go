@@ -7,6 +7,8 @@ import (
 	"path/filepath"
 	"runtime"
 	"tangxin-demo/pkg/file"
+	"tangxin-demo/pkg/setting"
+	"time"
 )
 
 type Level int
@@ -41,6 +43,8 @@ func Setup() {
 	}
 
 	logger = log.New(F, DefaultPrefix, log.LstdFlags)
+	log.Println("Logging setup completed, logging to file: ", filepath.Join(filePath, fileName))    // 添加这行
+	logger.Println("Logging setup completed, logging to file: ", filepath.Join(filePath, fileName)) // 添加这行
 }
 
 // Debug output logs at debug level
@@ -83,4 +87,16 @@ func setPrefix(level Level) {
 	}
 
 	logger.SetPrefix(logPrefix)
+}
+
+func getLogFilePath() string {
+	return fmt.Sprintf("%s%s", setting.AppSetting.RuntimeRootPath, setting.AppSetting.LogSavePath)
+}
+
+func getLogFileName() string {
+	return fmt.Sprintf("%s%s.%s",
+		setting.AppSetting.LogSaveName,
+		time.Now().Format(setting.AppSetting.TimeFormat),
+		setting.AppSetting.LogFileExt,
+	)
 }

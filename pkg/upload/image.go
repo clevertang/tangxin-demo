@@ -42,12 +42,11 @@ func CheckImageExt(fileName string) bool {
 }
 
 func CheckImageSize(f multipart.File) bool {
-	size, err := file.GetSize(f)
+	size, err := file.GetSize(f.(*os.File)) // 类型断言
 	if err != nil {
 		return false
 	}
-
-	return size <= setting.AppSetting.ImageMaxSize
+	return size <= int64(setting.AppSetting.ImageMaxSize) // 类型转换
 }
 
 func CheckImage(src string) error {
